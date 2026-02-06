@@ -83,10 +83,7 @@ export function MainMenu({ onSectionSelect }: MainMenuProps) {
   return (
     <div className="px-6 py-6">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-[#1A1A1A] mb-2">
-          Tu Vuelo VY71299
-        </h2>
-        <p className="text-gray-600">Barcelona → Roma FCO</p>
+        <p className="text-gray-600">Explora tu experiencia de vuelo</p>
       </div>
 
       <div className="space-y-3">
