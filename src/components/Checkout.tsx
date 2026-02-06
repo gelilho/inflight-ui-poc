@@ -3,6 +3,7 @@ import { CreditCard, Apple, Plane, Clock, Check } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { products } from "./ProductCatalog";
 import aviosLogo from "figma:asset/ad731dd079d986d8408837761aa9dc6b6c848227.png";
+import pretLogo from "figma:asset/479751c63a4054d4b5c9efe051d1b12269a8b6fc.png";
 
 interface CheckoutProps {
   cart: { [key: number]: number } | null;
@@ -96,11 +97,26 @@ export function Checkout({ cart }: CheckoutProps) {
         <div className="space-y-3">
           {cartItems.map((item) => (
             <div key={item.product?.id} className="flex gap-3">
-              <ImageWithFallback
-                src={item.product?.image || ""}
-                alt={item.product?.name || ""}
-                className="w-16 h-16 object-cover rounded-lg"
-              />
+              <div className="relative">
+                <ImageWithFallback
+                  src={item.product?.image || ""}
+                  alt={item.product?.name || ""}
+                  className="w-16 h-16 object-cover rounded-lg"
+                />
+                {/* Brand Logo Badge */}
+                {item.product?.brand === "pret" && (
+                  <div className="absolute -bottom-1 -right-1 w-7 h-7 bg-white rounded-full shadow-md flex items-center justify-center p-0.5">
+                    <img src={pretLogo} alt="Pret" className="w-full h-full object-contain" />
+                  </div>
+                )}
+                {item.product?.brand === "starbucks" && (
+                  <div className="absolute -bottom-1 -right-1 w-7 h-7 bg-white rounded-full shadow-md flex items-center justify-center p-1">
+                    <div className="w-full h-full rounded-full bg-[#00704A] flex items-center justify-center">
+                      <span className="text-white font-bold text-[8px]">SB</span>
+                    </div>
+                  </div>
+                )}
+              </div>
               <div className="flex-1">
                 <p className="font-semibold text-[#1A1A1A] text-sm">
                   {item.product?.name}
@@ -108,6 +124,17 @@ export function Checkout({ cart }: CheckoutProps) {
                 <p className="text-xs text-gray-600">
                   Cantidad: {item.qty}
                 </p>
+                {/* Brand Label */}
+                {item.product?.brand === "pret" && (
+                  <span className="inline-block mt-1 text-[9px] bg-red-50 text-red-700 px-1.5 py-0.5 rounded font-semibold">
+                    PRET A MANGER
+                  </span>
+                )}
+                {item.product?.brand === "starbucks" && (
+                  <span className="inline-block mt-1 text-[9px] bg-green-50 text-green-800 px-1.5 py-0.5 rounded font-semibold">
+                    STARBUCKS
+                  </span>
+                )}
               </div>
               <div className="text-right">
                 <p className="font-bold text-[#1A1A1A]">

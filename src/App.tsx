@@ -14,6 +14,7 @@ import { Entertainment } from "./components/Entertainment";
 import { FeedbackScreen } from "./components/FeedbackScreen";
 import { MagazineViewer } from "./components/MagazineViewer";
 import { Checkout } from "./components/Checkout";
+import { TransportFromAirport } from "./components/TransportFromAirport";
 import { useState, useEffect } from "react";
 
 export default function App() {
@@ -85,6 +86,7 @@ export default function App() {
               model="Airbus A321 Neo"
               age="2 años"
               registration="EC-LZI"
+              name="Air Force Juan"
             />
           </>
         );
@@ -139,6 +141,14 @@ export default function App() {
           <>
             <SectionHeader title="Checkout" onBack={handleBackToMenu} />
             <Checkout cart={checkoutCart} />
+          </>
+        );
+
+      case "transport":
+        return (
+          <>
+            <SectionHeader title="Cómo llegar desde FCO a Roma" onBack={handleBackToMenu} />
+            <TransportFromAirport />
           </>
         );
 

@@ -6,12 +6,14 @@ interface AircraftDetailsProps {
   model: string;
   age: string;
   registration: string;
+  name?: string;
 }
 
 export function AircraftDetails({
   model,
   age,
   registration,
+  name,
 }: AircraftDetailsProps) {
   return (
     <div className="px-6 py-4 bg-white">
@@ -51,6 +53,12 @@ export function AircraftDetails({
           </div>
 
           <div className="grid grid-cols-2 gap-4 pt-2 border-t border-gray-200">
+            {name && (
+              <div>
+                <div className="text-sm text-gray-600 mb-1">Nombre</div>
+                <div className="text-lg font-bold text-[#1A1A1A]">{name}</div>
+              </div>
+            )}
             <div>
               <div className="text-sm text-gray-600 mb-1">Antigüedad</div>
               <div className="text-lg font-bold text-[#1A1A1A]">{age}</div>

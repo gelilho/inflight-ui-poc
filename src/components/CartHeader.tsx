@@ -1,5 +1,8 @@
 import { ShoppingCart, Globe } from "lucide-react";
 import { useState } from "react";
+import galiciaFlag from "figma:asset/0fcf32fee2c6404d2b87eb5f02c54ed7e4b4908c.png";
+import cataloniaFlag from "figma:asset/96dde350892b5a3f9f95e227e39df8e0ebcf13a3.png";
+import basqueFlag from "figma:asset/1986cfd864d81502d30897e5f3ebfdd25357c954.png";
 
 interface CartHeaderProps {
   itemCount?: number;
@@ -8,14 +11,27 @@ interface CartHeaderProps {
 
 interface Language {
   code: string;
-  flag: string;
+  flag: string | React.ReactNode;
   name: string;
 }
 
 const languages: Language[] = [
   { code: "ES", flag: "🇪🇸", name: "Español" },
-  { code: "GL", flag: "🏴", name: "Galego" },
-  { code: "CAT", flag: "🏴", name: "Català" },
+  { 
+    code: "GL", 
+    flag: <img src={galiciaFlag} alt="Galicia" className="w-6 h-4 object-cover rounded" />, 
+    name: "Galego" 
+  },
+  { 
+    code: "CAT", 
+    flag: <img src={cataloniaFlag} alt="Catalunya" className="w-6 h-4 object-cover rounded" />, 
+    name: "Català" 
+  },
+  { 
+    code: "EUS", 
+    flag: <img src={basqueFlag} alt="Euskadi" className="w-6 h-4 object-cover rounded" />, 
+    name: "Euskera" 
+  },
   { code: "EN", flag: "🇬🇧", name: "English" },
   { code: "FR", flag: "🇫🇷", name: "Français" },
   { code: "IT", flag: "🇮🇹", name: "Italiano" },
@@ -56,8 +72,11 @@ export function CartHeader({ itemCount = 1, onCartClick }: CartHeaderProps) {
             className="flex items-center gap-2 bg-gray-50 rounded-full px-3 py-1.5 hover:bg-gray-100 transition-colors"
           >
             <Globe className="size-4 text-gray-600" />
-            <span className="text-sm font-semibold text-[#1A1A1A]">
-              {languages.find(l => l.code === selectedLang)?.flag} {selectedLang}
+            <span className="text-sm font-semibold text-[#1A1A1A] flex items-center gap-1.5">
+              {typeof languages.find(l => l.code === selectedLang)?.flag === 'string' 
+                ? languages.find(l => l.code === selectedLang)?.flag 
+                : <span className="inline-flex">{languages.find(l => l.code === selectedLang)?.flag}</span>
+              } {selectedLang}
             </span>
           </button>
 
@@ -75,7 +94,9 @@ export function CartHeader({ itemCount = 1, onCartClick }: CartHeaderProps) {
                     selectedLang === lang.code ? "bg-[#FFCC00]/10" : ""
                   }`}
                 >
-                  <span className="text-lg">{lang.flag}</span>
+                  <span className={typeof lang.flag === 'string' ? 'text-lg' : 'inline-flex'}>
+                    {lang.flag}
+                  </span>
                   <span className="text-sm font-medium text-[#1A1A1A]">
                     {lang.code}
                   </span>

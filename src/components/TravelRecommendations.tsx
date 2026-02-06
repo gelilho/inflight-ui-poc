@@ -1,4 +1,4 @@
-import { MapPin, Star, ShoppingBag, Coffee, Camera, Train, Car, Phone, AlertCircle, ChevronRight, Cloud, Sun, Umbrella, Newspaper, Utensils } from "lucide-react";
+import { MapPin, Star, ShoppingBag, Coffee, Camera, Phone, AlertCircle, ChevronRight, Cloud, Sun, Umbrella, Newspaper, Utensils } from "lucide-react";
 
 interface Recommendation {
   title: string;
@@ -210,64 +210,12 @@ export function TravelRecommendations() {
         </div>
       </div>
 
-      {/* 5. CÓMO LLEGAR A LA CIUDAD DESDE FCO */}
-      <div className="mb-4">
-        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg px-3 py-2 mb-3 flex items-center gap-2 shadow-sm">
-          <Car className="size-5 text-white" />
-          <h4 className="font-bold text-white">
-            🚗 Cómo llegar desde FCO
-          </h4>
-        </div>
-
-        {/* Train Option */}
-        <div className="bg-white rounded-xl shadow-sm p-4 mb-3">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
-              <Train className="size-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h5 className="font-semibold text-[#1A1A1A]">Tren Leonardo Express</h5>
-              <p className="text-sm text-gray-600">FCO → Roma Termini (32 min)</p>
-            </div>
-            <div className="text-right">
-              <div className="text-xs text-gray-500">desde</div>
-              <div className="font-bold text-[#1A1A1A]">14€</div>
-            </div>
-          </div>
-          <button className="w-full bg-green-500 hover:bg-green-600 transition-colors text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2">
-            <span className="text-lg">🇮🇹</span>
-            Comprar Billete Trenitalia
-          </button>
-        </div>
-
-        {/* Uber Option */}
-        <div className="bg-white rounded-xl shadow-sm p-4">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center">
-              <Car className="size-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h5 className="font-semibold text-[#1A1A1A]">Uber</h5>
-              <p className="text-sm text-gray-600">Reserva tu viaje con antelación</p>
-            </div>
-            <div className="text-right">
-              <div className="text-xs text-gray-500">desde</div>
-              <div className="font-bold text-[#1A1A1A]">45€</div>
-            </div>
-          </div>
-          <button className="w-full bg-black hover:bg-gray-800 transition-colors text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2">
-            <span className="font-bold">U</span>
-            Reservar Uber a tu llegada
-          </button>
-        </div>
-      </div>
-
-      {/* 6. TELÉFONOS DE AYUDA EN ITALIA */}
+      {/* 5. TELÉFONOS DE INTERÉS */}
       <div className="mb-4">
         <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg px-3 py-2 mb-3 flex items-center gap-2 shadow-sm">
-          <AlertCircle className="size-5 text-white" />
+          <Phone className="size-5 text-white" />
           <h4 className="font-bold text-white">
-            📞 Teléfonos de Emergencia
+            📞 Teléfonos de Interés
           </h4>
         </div>
 
@@ -277,14 +225,14 @@ export function TravelRecommendations() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center">
-                  <Phone className="size-5 text-white" />
+                  <span className="text-xl">🚨</span>
                 </div>
                 <div>
                   <div className="font-semibold text-[#1A1A1A]">Emergencias</div>
                   <div className="text-xs text-gray-500">Número de emergencia general</div>
                 </div>
               </div>
-              <div className="text-2xl font-bold text-red-500">112</div>
+              <a href="tel:112" className="text-2xl font-bold text-red-500">112</a>
             </div>
           </div>
 
@@ -293,30 +241,78 @@ export function TravelRecommendations() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
-                  <Phone className="size-5 text-white" />
+                  <span className="text-xl">👮</span>
                 </div>
                 <div>
                   <div className="font-semibold text-[#1A1A1A]">Policía</div>
                   <div className="text-xs text-gray-500">Carabinieri</div>
                 </div>
               </div>
-              <div className="text-2xl font-bold text-blue-500">113</div>
+              <a href="tel:113" className="text-2xl font-bold text-blue-500">113</a>
             </div>
           </div>
 
           {/* Bomberos */}
-          <div className="p-4 hover:bg-orange-50 transition-colors cursor-pointer">
+          <div className="p-4 border-b border-gray-200 hover:bg-orange-50 transition-colors cursor-pointer">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center">
-                  <Phone className="size-5 text-white" />
+                  <span className="text-xl">🚒</span>
                 </div>
                 <div>
                   <div className="font-semibold text-[#1A1A1A]">Bomberos</div>
                   <div className="text-xs text-gray-500">Vigili del Fuoco</div>
                 </div>
               </div>
-              <div className="text-2xl font-bold text-orange-500">115</div>
+              <a href="tel:115" className="text-2xl font-bold text-orange-500">115</a>
+            </div>
+          </div>
+
+          {/* Radio Taxi Roma */}
+          <div className="p-4 border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
+                  <span className="text-xl">🚕</span>
+                </div>
+                <div>
+                  <div className="font-semibold text-[#1A1A1A]">Radio Taxi Roma</div>
+                  <div className="text-xs text-gray-500">Servicio oficial de taxis</div>
+                </div>
+              </div>
+              <a href="tel:+39063570" className="text-lg font-bold text-gray-700">+39 06 3570</a>
+            </div>
+          </div>
+
+          {/* Aeropuerto FCO */}
+          <div className="p-4 border-b border-gray-200 hover:bg-sky-50 transition-colors cursor-pointer">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center">
+                  <span className="text-xl">🛫</span>
+                </div>
+                <div>
+                  <div className="font-semibold text-[#1A1A1A]">Aeropuerto FCO</div>
+                  <div className="text-xs text-gray-500">Información general</div>
+                </div>
+              </div>
+              <a href="tel:+390665951" className="text-lg font-bold text-sky-500">+39 06 65951</a>
+            </div>
+          </div>
+
+          {/* Vueling Airlines */}
+          <div className="p-4 hover:bg-yellow-50 transition-colors cursor-pointer">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#FFCC00] flex items-center justify-center">
+                  <span className="text-xl">✈️</span>
+                </div>
+                <div>
+                  <div className="font-semibold text-[#1A1A1A]">Vueling Airlines</div>
+                  <div className="text-xs text-gray-500">Atención al cliente 24/7</div>
+                </div>
+              </div>
+              <a href="tel:+34931518158" className="text-lg font-bold text-[#FFCC00]">+34 931 518 158</a>
             </div>
           </div>
         </div>

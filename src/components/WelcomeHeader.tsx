@@ -74,14 +74,14 @@ export function WelcomeHeader({
         </div>
       </div>
 
-      {/* Boarding Pass Button */}
+      {/* Tarjeta de Embarque Button */}
       <div className="mt-3 flex justify-center">
         <button
-          className="bg-white/40 hover:bg-white/60 backdrop-blur-sm text-[#1A1A1A] font-semibold text-sm py-2 px-4 rounded-full flex items-center gap-2 transition-all shadow-sm"
           onClick={() => setShowBoardingPass(true)}
+          className="bg-[#FFCC00] hover:bg-[#FFD700] transition-colors rounded-lg py-3 px-6 font-semibold text-[#1A1A1A] flex items-center gap-2 shadow-md"
         >
           <Plane className="size-4" />
-          Ver Boarding Pass
+          Ver Tarjeta de Embarque
         </button>
       </div>
 

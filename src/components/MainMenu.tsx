@@ -10,6 +10,7 @@ import {
   Briefcase,
   Headphones,
   MessageSquare,
+  Car,
 } from "lucide-react";
 
 export type SectionType =
@@ -25,7 +26,8 @@ export type SectionType =
   | "feedback"
   | "magazine"
   | "checkout"
-  | "help";
+  | "help"
+  | "transport";
 
 interface MainMenuProps {
   onSectionSelect: (section: SectionType) => void;
@@ -67,6 +69,12 @@ const menuItems: MenuItem[] = [
     id: "feedback",
     title: "Danos Feedback",
     icon: <MessageSquare className="size-6" />,
+    color: "from-green-400 to-green-500",
+  },
+  {
+    id: "transport",
+    title: "Cómo llegar desde FCO a Roma",
+    icon: <Car className="size-6" />,
     color: "from-green-400 to-green-500",
   },
 ];

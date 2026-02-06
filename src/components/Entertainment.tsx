@@ -89,20 +89,20 @@ export function Entertainment({ onMagazineClick }: EntertainmentProps) {
                     {song.artist}
                   </div>
                 </div>
-                <div className="text-sm font-medium text-gray-500">
+                <div className="text-sm font-medium text-gray-500 mr-2">
                   {song.duration}
                 </div>
                 <button
                   onClick={() => toggleLike(song.id)}
-                  className="transition-transform hover:scale-110"
+                  className={`transition-all hover:scale-110 w-8 h-8 flex items-center justify-center flex-shrink-0 ${
+                    !likedSongs.has(song.id) ? "border-2 border-[#FFCC00] rounded-full" : ""
+                  }`}
                 >
-                  <Heart
-                    className={`size-6 transition-colors ${
-                      likedSongs.has(song.id)
-                        ? "fill-red-500 text-red-500"
-                        : "text-gray-400"
-                    }`}
-                  />
+                  {likedSongs.has(song.id) ? (
+                    <span className="text-2xl">💛</span>
+                  ) : (
+                    <Heart className="size-6 text-[#FFCC00]" />
+                  )}
                 </button>
               </div>
             ))}
