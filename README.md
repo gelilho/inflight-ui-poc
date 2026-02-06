@@ -1,5 +1,5 @@
 
-  # Pantalla de vuelo Vueling
+  # In-flight experience - Vueling
 
   This is a code bundle for Pantalla de vuelo Vueling. The original project is available at https://www.figma.com/design/bSUtFj39bcnhVgv3eklEnM/Pantalla-de-vuelo-Vueling.
 
