@@ -53,7 +53,7 @@ export function CrewSection({
                 P
               </div>
               <div className="font-semibold text-[#1A1A1A] text-sm">
-                Pedro Fernández
+                Pedro
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -61,7 +61,7 @@ export function CrewSection({
                 L
               </div>
               <div className="font-semibold text-[#1A1A1A] text-sm">
-                Leticia Soares
+                Leticia
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -69,7 +69,7 @@ export function CrewSection({
                 J
               </div>
               <div className="font-semibold text-[#1A1A1A] text-sm">
-                Joana Peña
+                Joana
               </div>
             </div>
           </div>

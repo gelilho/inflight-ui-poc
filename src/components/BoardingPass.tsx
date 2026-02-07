@@ -51,7 +51,7 @@ export function BoardingPass({ isOpen, onClose }: BoardingPassProps) {
           {/* Passenger Info */}
           <div className="bg-gray-50 rounded-lg p-2 mb-2">
             <div className="text-[10px] text-gray-500">Pasajero</div>
-            <div className="text-sm font-bold text-[#1A1A1A]">SANDRA GARCÍA</div>
+            <div className="text-sm font-bold text-[#1A1A1A]">ÁNGEL GARCÍA</div>
           </div>
 
           {/* Flight Details Grid */}

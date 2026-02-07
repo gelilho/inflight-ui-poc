@@ -15,11 +15,13 @@ import { FeedbackScreen } from "./components/FeedbackScreen";
 import { MagazineViewer } from "./components/MagazineViewer";
 import { Checkout } from "./components/Checkout";
 import { TransportFromAirport } from "./components/TransportFromAirport";
+import { DetailScreen, DetailContent } from "./components/DetailScreen";
 import { useState, useEffect } from "react";
 
 export default function App() {
   const [currentSection, setCurrentSection] = useState<SectionType>("menu");
   const [checkoutCart, setCheckoutCart] = useState<{ [key: number]: number } | null>(null);
+  const [detailContent, setDetailContent] = useState<DetailContent | null>(null);
 
   const handleSectionSelect = (section: SectionType) => {
     setCurrentSection(section);
@@ -116,7 +118,9 @@ export default function App() {
         return (
           <>
             <SectionHeader title="Recomendaciones para tu viaje" onBack={handleBackToMenu} />
-            <TravelRecommendations />
+            <TravelRecommendations
+              onDetailClick={(content) => setDetailContent(content)}
+            />
           </>
         );
 
@@ -175,6 +179,30 @@ export default function App() {
 
         {/* Dynamic Section Content */}
         {renderSection()}
+
+        {/* Detail Screen Overlay */}
+        {detailContent && (
+          <div className="fixed inset-0 z-50 max-w-md mx-auto bg-white">
+            <CartHeader
+              itemCount={3}
+              onCartClick={() => {
+                if (!checkoutCart) {
+                  setCheckoutCart({ 2: 1, 5: 2 });
+                }
+                setDetailContent(null);
+                setCurrentSection("checkout");
+              }}
+            />
+            <SectionHeader 
+              title={detailContent.title} 
+              onBack={() => setDetailContent(null)} 
+            />
+            <DetailScreen
+              content={detailContent}
+              onBack={() => setDetailContent(null)}
+            />
+          </div>
+        )}
 
         {/* Bottom Spacing */}
         <div className="h-8"></div>

@@ -24,7 +24,7 @@ export function WelcomeHeader({
       {/* Welcome Message */}
       <div className="mb-4">
         <h1 className="text-2xl font-bold text-[#1A1A1A] mb-1">
-          Bienvenida Sandra
+          Bienvenido Ángel
         </h1>
         <p className="text-gray-600">
           Prepárate para disfrutar de tu vuelo
