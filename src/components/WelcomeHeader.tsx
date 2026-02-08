@@ -6,6 +6,7 @@ interface WelcomeHeaderProps {
   flightNumber: string;
   destination: string;
   destinationCode: string;
+  originCode?: string;
   duration: string;
   arrivalTime: string;
 }
@@ -14,6 +15,7 @@ export function WelcomeHeader({
   flightNumber,
   destination,
   destinationCode,
+  originCode = "BCN",
   duration,
   arrivalTime,
 }: WelcomeHeaderProps) {
@@ -49,7 +51,7 @@ export function WelcomeHeader({
         <div className="flex items-center gap-3">
           <div className="flex-1">
             <div className="text-xs text-gray-700 mb-1">Origen</div>
-            <div className="text-lg font-bold text-[#1A1A1A]">BCN</div>
+            <div className="text-lg font-bold text-[#1A1A1A]">{originCode}</div>
           </div>
           <div className="flex-shrink-0">
             <Plane className="size-6 text-[#1A1A1A]" />
@@ -57,7 +59,7 @@ export function WelcomeHeader({
           <div className="flex-1 text-right">
             <div className="text-xs text-gray-700 mb-1">Destino</div>
             <div className="text-lg font-bold text-[#1A1A1A]">
-              {destination} {destinationCode}
+              {destinationCode}
             </div>
           </div>
         </div>
@@ -65,7 +67,7 @@ export function WelcomeHeader({
         <div className="mt-4 bg-white/30 backdrop-blur-sm rounded-lg p-3">
           <div className="flex items-center justify-between">
             <div className="text-sm font-semibold text-[#1A1A1A]">
-              Llegada estimada a Roma
+              Llegada estimada a {destination}
             </div>
             <div className="text-lg font-bold text-[#1A1A1A]">
               {arrivalTime}

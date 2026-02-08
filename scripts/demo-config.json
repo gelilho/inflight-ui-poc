@@ -1,0 +1,37 @@
+{
+  "_comment": "Demo configuration — edit these values to change what the UI fetches and displays.",
+
+  "flight_number": "VY71299",
+  "flight_date": "20260207",
+  "airport_code": "FCO",
+  "destination_city": "Roma",
+  "origin_code": "BCN",
+  "language": "es",
+
+  "_available_flights": {
+    "VY71299 / 20260207": "Barcelona (BCN) → Rome Fiumicino (FCO)  — Airbus A320-200",
+    "VY71299 / 20260208": "Barcelona (BCN) → Rome Fiumicino (FCO)  — Airbus A320-200",
+    "IB3421  / 20260208": "Madrid (MAD)    → London Heathrow (LHR) — Boeing 737-800"
+  },
+
+  "_available_airports": {
+    "FCO": "Rome Fiumicino   → destination_city: Roma",
+    "LHR": "London Heathrow  → destination_city: Londres",
+    "CDG": "Paris CDG        → destination_city: París"
+  },
+
+  "_available_languages": {
+    "es": "Spanish",
+    "en": "English",
+    "fr": "French",
+    "it": "Italian",
+    "ca": "Catalan",
+    "gl": "Galician"
+  },
+
+  "_available_bookings": {
+    "VY4K7M": "Angel Lopez  — VY71299 20260207 — Seat 14D — Economy",
+    "VY8L2P": "Maria Garcia — VY71299 20260207 — Seat 12A — Business",
+    "VY3M9R": "John Smith   — IB3421  20260208 — Seat 8C  — Economy"
+  }
+}

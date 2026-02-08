@@ -17,7 +17,7 @@ import { Checkout } from "./components/Checkout";
 import { TransportFromAirport } from "./components/TransportFromAirport";
 import { DetailScreen, DetailContent } from "./components/DetailScreen";
 import { useState, useEffect } from "react";
-import { useFlightExperience } from "./services/useFlightExperience";
+import { useFlightExperience, DEMO_CONFIG } from "./services/useFlightExperience";
 
 export default function App() {
   const [currentSection, setCurrentSection] = useState<SectionType>("menu");
@@ -49,11 +49,12 @@ export default function App() {
         return (
           <>
             <WelcomeHeader
-              flightNumber="VY71299"
-              destination="Roma"
-              destinationCode="FCO"
-              duration="2h 15m"
-              arrivalTime="13:00"
+              flightNumber={DEMO_CONFIG.flightNumber}
+              destination={DEMO_CONFIG.destinationCity}
+              destinationCode={DEMO_CONFIG.airportCode}
+              originCode={DEMO_CONFIG.originCode}
+              duration={`${Math.floor(flight.average_duration_minutes / 60)}h ${flight.average_duration_minutes % 60}m`}
+              arrivalTime={flight.arrival_time}
             />
             <div className="h-2 bg-gray-100"></div>
             <MainMenu onSectionSelect={handleSectionSelect} />
@@ -69,17 +70,17 @@ export default function App() {
           <>
             <SectionHeader title="Detalles del Vuelo" onBack={handleBackToMenu} />
             <FlightInfo
-              flightNumber="VY71299"
-              origin="BCN"
-              destination="FCO"
-              departureTime="10:45"
-              arrivalTime="13:00"
-              date="03 Feb 2026"
-              gate="B12"
+              flightNumber={DEMO_CONFIG.flightNumber}
+              origin={DEMO_CONFIG.originCode}
+              destination={DEMO_CONFIG.airportCode}
+              departureTime={flight.departure_time}
+              arrivalTime={flight.arrival_time}
+              date={`${DEMO_CONFIG.flightDate.slice(6,8)}/${DEMO_CONFIG.flightDate.slice(4,6)}/${DEMO_CONFIG.flightDate.slice(0,4)}`}
+              gate={flight.departure_gate}
               seat="15A"
             />
             <div className="h-2 bg-gray-100"></div>
-            <BaggageInfo carousel="12" />
+            <BaggageInfo carousel={flight.baggage_claim_belt} />
             <div className="h-2 bg-gray-100"></div>
             <CrewSection
               captain={`${flight.cockpit_crew.captain.first_name} ${flight.cockpit_crew.captain.last_name}`}
@@ -89,7 +90,7 @@ export default function App() {
             />
             <div className="h-2 bg-gray-100"></div>
             <FlightMap
-              route={["BCN", "LESI", "APO", "IEU", "EPOR", "FCO"]}
+              route={[DEMO_CONFIG.originCode, "...", DEMO_CONFIG.airportCode]}
               currentAltitude="38,000 ft"
               currentSpeed="490 kts"
             />
@@ -112,6 +113,7 @@ export default function App() {
             <SectionHeader title="Recomendaciones para tu viaje" onBack={handleBackToMenu} />
             <TravelRecommendations
               onDetailClick={(content) => setDetailContent(content)}
+              cityName={DEMO_CONFIG.destinationCity}
               highlights={destinationContent.highlights}
               restaurants={destinationContent.restaurants}
               emergencyContacts={destinationContent.emergency_contacts}
@@ -176,7 +178,7 @@ export default function App() {
       case "transport":
         return (
           <>
-            <SectionHeader title="Cómo llegar desde FCO a Roma" onBack={handleBackToMenu} />
+            <SectionHeader title={`Cómo llegar desde ${DEMO_CONFIG.airportCode} a ${DEMO_CONFIG.destinationCity}`} onBack={handleBackToMenu} />
             <TransportFromAirport />
           </>
         );

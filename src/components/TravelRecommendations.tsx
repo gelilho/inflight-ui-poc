@@ -17,6 +17,7 @@ const DAY_LABELS = ["Hoy", "Mañana", "Pasado"];
 
 interface TravelRecommendationsProps {
   onDetailClick: (content: DetailContent) => void;
+  cityName: string;
   highlights: Highlight[];
   restaurants: Restaurant[];
   emergencyContacts: EmergencyContacts;
@@ -33,6 +34,7 @@ interface TravelRecommendationsProps {
 
 export function TravelRecommendations({
   onDetailClick,
+  cityName,
   highlights,
   restaurants,
   emergencyContacts,
@@ -53,7 +55,7 @@ export function TravelRecommendations({
       <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-sm p-4 mb-4">
         <div className="flex items-center gap-2 mb-3">
           <Sun className="size-5 text-orange-500" />
-          <h4 className="font-semibold text-[#1A1A1A]">El tiempo en Roma</h4>
+          <h4 className="font-semibold text-[#1A1A1A]">El tiempo en {cityName}</h4>
         </div>
 
         <div className="grid grid-cols-3 gap-2">
@@ -71,7 +73,7 @@ export function TravelRecommendations({
 
         <div className="mt-3 bg-white/70 rounded-lg p-2">
           <p className="text-xs text-gray-700 text-center">
-            {isLoading.weather ? "Cargando previsión..." : "Previsión para tu estancia en Roma"}
+            {isLoading.weather ? "Cargando previsión..." : `Previsión para tu estancia en ${cityName}`}
           </p>
         </div>
       </div>
@@ -220,7 +222,7 @@ export function TravelRecommendations({
       {/* Footer */}
       <div className="mt-4 bg-gradient-to-r from-[#FFCC00] to-[#FFD700] rounded-xl p-4 text-center">
         <p className="text-sm font-semibold text-[#1A1A1A]">
-          Disfruta tu estancia en la ciudad eterna!
+          {`¡Disfruta tu estancia en ${cityName}!`}
         </p>
       </div>
     </div>

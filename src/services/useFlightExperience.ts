@@ -12,8 +12,8 @@ import {
   fetchDestinationContent,
   fetchWeather,
   fetchNews,
+  logFallback,
 } from "./api";
-import { logDebug, logError } from "./logger";
 import {
   FALLBACK_FLIGHT,
   FALLBACK_DESTINATION,
@@ -46,10 +46,22 @@ interface FlightExperience {
   };
 }
 
-const FLIGHT_NUMBER = "VY71299";
-const FLIGHT_DATE = "20260207";
-const AIRPORT_CODE = "FCO";
-const LANGUAGE = "es";
+// ── Demo config (set by scripts/run-server.sh from demo-config.json) ──
+// Fallback to Rome demo defaults so it always works.
+
+export const DEMO_CONFIG = {
+  flightNumber: (import.meta.env.VITE_FLIGHT_NUMBER as string) || "VY71299",
+  flightDate: (import.meta.env.VITE_FLIGHT_DATE as string) || "20260207",
+  airportCode: (import.meta.env.VITE_AIRPORT_CODE as string) || "FCO",
+  destinationCity: (import.meta.env.VITE_DESTINATION_CITY as string) || "Roma",
+  originCode: (import.meta.env.VITE_ORIGIN_CODE as string) || "BCN",
+  language: (import.meta.env.VITE_LANGUAGE as string) || "es",
+} as const;
+
+const FLIGHT_NUMBER = DEMO_CONFIG.flightNumber;
+const FLIGHT_DATE = DEMO_CONFIG.flightDate;
+const AIRPORT_CODE = DEMO_CONFIG.airportCode;
+const LANGUAGE = DEMO_CONFIG.language;
 
 export function useFlightExperience(): FlightExperience {
   const [flight, setFlight] = useState<Flight>(FALLBACK_FLIGHT);
@@ -72,16 +84,20 @@ export function useFlightExperience(): FlightExperience {
   });
 
   useEffect(() => {
+    console.log(
+      "%c✈ Inflight Experience — loading data",
+      "color: #FFCC00; font-weight: bold; font-size: 14px",
+      { config: DEMO_CONFIG }
+    );
+
     // Fire all requests in parallel — each one is independent
     fetchFlight(FLIGHT_NUMBER, FLIGHT_DATE)
       .then((data) => {
         setFlight(data);
         setIsLive((prev) => ({ ...prev, flight: true }));
-        logDebug("flight.loaded", { source: "api" });
       })
       .catch((err) => {
-        console.warn("Flight API unavailable, using fallback:", err.message);
-        logError("flight.fallback", { message: err.message });
+        logFallback("flight", err.message);
       })
       .finally(() => setLoading((prev) => ({ ...prev, flight: false })));
 
@@ -89,11 +105,9 @@ export function useFlightExperience(): FlightExperience {
       .then((data) => {
         setDestinationContent(data);
         setIsLive((prev) => ({ ...prev, destination: true }));
-        logDebug("destination.loaded", { source: "api" });
       })
       .catch((err) => {
-        console.warn("Destination API unavailable, using fallback:", err.message);
-        logError("destination.fallback", { message: err.message });
+        logFallback("destination", err.message);
       })
       .finally(() => setLoading((prev) => ({ ...prev, destination: false })));
 
@@ -101,11 +115,9 @@ export function useFlightExperience(): FlightExperience {
       .then((data) => {
         setWeather(data);
         setIsLive((prev) => ({ ...prev, weather: true }));
-        logDebug("weather.loaded", { source: "api" });
       })
       .catch((err) => {
-        console.warn("Weather API unavailable, using fallback:", err.message);
-        logError("weather.fallback", { message: err.message });
+        logFallback("weather", err.message);
       })
       .finally(() => setLoading((prev) => ({ ...prev, weather: false })));
 
@@ -113,11 +125,9 @@ export function useFlightExperience(): FlightExperience {
       .then((data) => {
         setNews(data);
         setIsLive((prev) => ({ ...prev, news: true }));
-        logDebug("news.loaded", { source: "api" });
       })
       .catch((err) => {
-        console.warn("News API unavailable, using fallback:", err.message);
-        logError("news.fallback", { message: err.message });
+        logFallback("news", err.message);
       })
       .finally(() => setLoading((prev) => ({ ...prev, news: false })));
   }, []);
