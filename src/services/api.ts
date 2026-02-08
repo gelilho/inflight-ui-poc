@@ -13,10 +13,17 @@ import type {
   WeatherForecast,
   LocalNews,
 } from "./types";
+import { logDebug, logError } from "./logger";
 
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 async function get<T>(path: string, timeoutMs = 10_000): Promise<T> {
+  const startedAt = performance.now();
+  logDebug("api.request.start", {
+    method: "GET",
+    url: `${BASE_URL}${path}`,
+    timeoutMs,
+  });
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -25,7 +32,24 @@ async function get<T>(path: string, timeoutMs = 10_000): Promise<T> {
       signal: controller.signal,
     });
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-    return (await res.json()) as T;
+    const data = (await res.json()) as T;
+    logDebug("api.request.success", {
+      method: "GET",
+      url: `${BASE_URL}${path}`,
+      status: res.status,
+      durationMs: Math.round(performance.now() - startedAt),
+    });
+    return data;
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Unknown error";
+    logError("api.request.error", {
+      method: "GET",
+      url: `${BASE_URL}${path}`,
+      durationMs: Math.round(performance.now() - startedAt),
+      message,
+    });
+    throw error;
   } finally {
     clearTimeout(timer);
   }

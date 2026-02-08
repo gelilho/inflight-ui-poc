@@ -13,6 +13,7 @@ import {
   fetchWeather,
   fetchNews,
 } from "./api";
+import { logDebug, logError } from "./logger";
 import {
   FALLBACK_FLIGHT,
   FALLBACK_DESTINATION,
@@ -76,32 +77,48 @@ export function useFlightExperience(): FlightExperience {
       .then((data) => {
         setFlight(data);
         setIsLive((prev) => ({ ...prev, flight: true }));
+        logDebug("flight.loaded", { source: "api" });
       })
-      .catch((err) => console.warn("Flight API unavailable, using fallback:", err.message))
+      .catch((err) => {
+        console.warn("Flight API unavailable, using fallback:", err.message);
+        logError("flight.fallback", { message: err.message });
+      })
       .finally(() => setLoading((prev) => ({ ...prev, flight: false })));
 
     fetchDestinationContent(AIRPORT_CODE, LANGUAGE)
       .then((data) => {
         setDestinationContent(data);
         setIsLive((prev) => ({ ...prev, destination: true }));
+        logDebug("destination.loaded", { source: "api" });
       })
-      .catch((err) => console.warn("Destination API unavailable, using fallback:", err.message))
+      .catch((err) => {
+        console.warn("Destination API unavailable, using fallback:", err.message);
+        logError("destination.fallback", { message: err.message });
+      })
       .finally(() => setLoading((prev) => ({ ...prev, destination: false })));
 
     fetchWeather(AIRPORT_CODE, LANGUAGE)
       .then((data) => {
         setWeather(data);
         setIsLive((prev) => ({ ...prev, weather: true }));
+        logDebug("weather.loaded", { source: "api" });
       })
-      .catch((err) => console.warn("Weather API unavailable, using fallback:", err.message))
+      .catch((err) => {
+        console.warn("Weather API unavailable, using fallback:", err.message);
+        logError("weather.fallback", { message: err.message });
+      })
       .finally(() => setLoading((prev) => ({ ...prev, weather: false })));
 
     fetchNews(AIRPORT_CODE, LANGUAGE)
       .then((data) => {
         setNews(data);
         setIsLive((prev) => ({ ...prev, news: true }));
+        logDebug("news.loaded", { source: "api" });
       })
-      .catch((err) => console.warn("News API unavailable, using fallback:", err.message))
+      .catch((err) => {
+        console.warn("News API unavailable, using fallback:", err.message);
+        logError("news.fallback", { message: err.message });
+      })
       .finally(() => setLoading((prev) => ({ ...prev, news: false })));
   }, []);
 
