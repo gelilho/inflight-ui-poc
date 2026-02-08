@@ -17,11 +17,16 @@ import { Checkout } from "./components/Checkout";
 import { TransportFromAirport } from "./components/TransportFromAirport";
 import { DetailScreen, DetailContent } from "./components/DetailScreen";
 import { useState, useEffect } from "react";
+import { useFlightExperience } from "./services/useFlightExperience";
 
 export default function App() {
   const [currentSection, setCurrentSection] = useState<SectionType>("menu");
   const [checkoutCart, setCheckoutCart] = useState<{ [key: number]: number } | null>(null);
   const [detailContent, setDetailContent] = useState<DetailContent | null>(null);
+
+  // Live API data (with pre-cached fallback — demo never breaks)
+  const { flight, destinationContent, weather, news, loading } =
+    useFlightExperience();
 
   const handleSectionSelect = (section: SectionType) => {
     setCurrentSection(section);
@@ -31,13 +36,15 @@ export default function App() {
     setCurrentSection("menu");
   };
 
-  // Scroll al principio cuando cambie de sección
+  // Scroll to top on section change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentSection]);
 
   const renderSection = () => {
     switch (currentSection) {
+      // ── Static screens (unchanged) ───────────────────
+
       case "menu":
         return (
           <>
@@ -54,6 +61,8 @@ export default function App() {
             <HelpFooter />
           </>
         );
+
+      // ── LIVE: Crew + Aircraft from backend API ───────
 
       case "flightDetails":
         return (
@@ -73,9 +82,10 @@ export default function App() {
             <BaggageInfo carousel="12" />
             <div className="h-2 bg-gray-100"></div>
             <CrewSection
-              captain="Manuel"
-              firstOfficer="Juan Carlos"
-              cabinCrew={["Pedro", "Leticia", "Joana"]}
+              captain={`${flight.cockpit_crew.captain.first_name} ${flight.cockpit_crew.captain.last_name}`}
+              firstOfficer={`${flight.cockpit_crew.first_officer.first_name} ${flight.cockpit_crew.first_officer.last_name}`}
+              cabinCrew={flight.cabin_crew.map((c) => c.first_name)}
+              isLoading={loading.flight}
             />
             <div className="h-2 bg-gray-100"></div>
             <FlightMap
@@ -85,13 +95,38 @@ export default function App() {
             />
             <div className="h-2 bg-gray-100"></div>
             <AircraftDetails
-              model="Airbus A321 Neo"
-              age="2 años"
-              registration="EC-LZI"
-              name="Air Force Juan"
+              model={flight.aircraft.model}
+              age={`${flight.aircraft.age_years} años`}
+              registration={flight.aircraft.registration}
+              name={flight.aircraft.aircraft_name}
+              isLoading={loading.flight}
             />
           </>
         );
+
+      // ── LIVE: Highlights, Restaurants, Emergency, Weather, News ─
+
+      case "recommendations":
+        return (
+          <>
+            <SectionHeader title="Recomendaciones para tu viaje" onBack={handleBackToMenu} />
+            <TravelRecommendations
+              onDetailClick={(content) => setDetailContent(content)}
+              highlights={destinationContent.highlights}
+              restaurants={destinationContent.restaurants}
+              emergencyContacts={destinationContent.emergency_contacts}
+              weather={weather}
+              news={news}
+              isLoading={{
+                destination: loading.destination,
+                weather: loading.weather,
+                news: loading.news,
+              }}
+            />
+          </>
+        );
+
+      // ── Static screens (unchanged) ───────────────────
 
       case "products":
         return (
@@ -111,16 +146,6 @@ export default function App() {
           <>
             <SectionHeader title="Entretenimiento" onBack={handleBackToMenu} />
             <Entertainment onMagazineClick={() => handleSectionSelect("magazine")} />
-          </>
-        );
-
-      case "recommendations":
-        return (
-          <>
-            <SectionHeader title="Recomendaciones para tu viaje" onBack={handleBackToMenu} />
-            <TravelRecommendations
-              onDetailClick={(content) => setDetailContent(content)}
-            />
           </>
         );
 
@@ -165,13 +190,12 @@ export default function App() {
     <div className="min-h-screen bg-gray-100">
       {/* Mobile Container */}
       <div className="max-w-md mx-auto bg-white shadow-xl min-h-screen">
-        {/* Cart Header - Always visible with mock count */}
+        {/* Cart Header */}
         <CartHeader
           itemCount={3}
           onCartClick={() => {
-            // Si no hay carrito real, crear uno mock para navegar
             if (!checkoutCart) {
-              setCheckoutCart({ 2: 1, 5: 2 }); // Mock: 1 sándwich + 2 cafés
+              setCheckoutCart({ 2: 1, 5: 2 });
             }
             setCurrentSection("checkout");
           }}
@@ -193,9 +217,9 @@ export default function App() {
                 setCurrentSection("checkout");
               }}
             />
-            <SectionHeader 
-              title={detailContent.title} 
-              onBack={() => setDetailContent(null)} 
+            <SectionHeader
+              title={detailContent.title}
+              onBack={() => setDetailContent(null)}
             />
             <DetailScreen
               content={detailContent}

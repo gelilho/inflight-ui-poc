@@ -1,6 +1,6 @@
 
   {
-      "name": "Pantalla de vuelo Vueling",
+      "name": "inflight-ui-poc",
       "version": "0.1.0",
       "private": true,
       "dependencies": {

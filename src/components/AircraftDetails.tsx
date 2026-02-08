@@ -7,6 +7,7 @@ interface AircraftDetailsProps {
   age: string;
   registration: string;
   name?: string;
+  isLoading?: boolean;
 }
 
 export function AircraftDetails({
@@ -14,6 +15,7 @@ export function AircraftDetails({
   age,
   registration,
   name,
+  isLoading = false,
 }: AircraftDetailsProps) {
   return (
     <div className="px-6 py-4 bg-white">
