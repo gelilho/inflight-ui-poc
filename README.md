@@ -90,9 +90,9 @@ After editing, restart the UI (`Ctrl+C` → `./scripts/run-server.sh`).
 │   :3000              │         │     :8000                  │
 └──────────────────────┘         └──────────────────────────┘
         │                                   │
-        │ fallback-data.ts                  ├── Gemini 2.5 Flash (AI content)
-        │ (pre-cached Rome data)            ├── OpenWeatherMap (weather)
-        └── demo never breaks               └── NewsAPI (news)
+        │ fallback-data.ts                  └── Gemini 2.5 Flash
+        │ (pre-cached Rome data)                (ALL content: highlights,
+        └── demo never breaks                    restaurants, weather, news)
 ```
 
 **Fallback-first**: The UI initialises with pre-cached data instantly, then replaces it with live API data when ready. If any API call fails, the cached data stays — the demo never shows an error screen.
@@ -106,8 +106,8 @@ After editing, restart the UI (`Ctrl+C` → `./scripts/run-server.sh`).
 | Highlights | `/api/v1/destination/{code}/content/{lang}` | Slow (Gemini) |
 | Restaurants | `/api/v1/destination/{code}/content/{lang}` | Slow (Gemini) |
 | Emergency | `/api/v1/destination/{code}/content/{lang}` | Slow (Gemini) |
-| Weather | `/api/v1/destination/{code}/weather/{lang}` | Fast (API) |
-| News | `/api/v1/destination/{code}/news/{lang}` | Medium (API/Gemini) |
+| Weather | `/api/v1/destination/{code}/weather/{lang}` | Fast (Gemini, cached) |
+| News | `/api/v1/destination/{code}/news/{lang}` | Fast (Gemini, cached) |
 
 ### Static screens (no API)
 
