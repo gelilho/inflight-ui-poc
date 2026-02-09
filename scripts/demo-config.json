@@ -8,6 +8,10 @@
   "origin_code": "BCN",
   "language": "es",
 
+  "_comment_prewarm": "API pre-warming: which airports and languages to pre-generate on startup",
+  "prewarm_airports": "FCO",
+  "prewarm_languages": "en,es,it",
+
   "_available_flights": {
     "VY71299 / 20260207": "Barcelona (BCN) → Rome Fiumicino (FCO)  — Airbus A320-200",
     "VY71299 / 20260208": "Barcelona (BCN) → Rome Fiumicino (FCO)  — Airbus A320-200",
