@@ -133,7 +133,7 @@ export function fetchWeather(
   );
 }
 
-// ── News (medium — NewsAPI or Gemini fallback) ───────────
+// ── News (Gemini AI generated) ───────────
 
 export function fetchNews(
   airportCode: string,
