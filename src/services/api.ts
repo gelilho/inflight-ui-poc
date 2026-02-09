@@ -13,6 +13,7 @@ import type {
   DestinationContent,
   WeatherForecast,
   LocalNews,
+  FlightAdvisory,
 } from "./types";
 
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
@@ -143,4 +144,10 @@ export function fetchNews(
     `/api/v1/destination/${airportCode}/news/${language}`,
     30_000 // 30s — Gemini fallback can be slow
   );
+}
+
+// ── Flight advisories (static — fast) ────────────────────
+
+export function fetchAdvisories(): Promise<FlightAdvisory[]> {
+  return get<FlightAdvisory[]>("/api/v1/flight/advisories");
 }

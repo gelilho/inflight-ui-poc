@@ -26,6 +26,18 @@ export interface CockpitCrew {
   first_officer: CrewMember;
 }
 
+export interface ConnectingFlight {
+  flight_number: string;
+  airline: string;
+  destination: string;
+  destination_code: string;
+  departure_time: string;
+  gate: string;
+  terminal: string;
+  same_terminal: boolean;
+  status: string;
+}
+
 export interface Flight {
   flight_number: string;
   flight_date: string;
@@ -39,6 +51,17 @@ export interface Flight {
   average_duration_minutes: number;
   departure_gate: string;
   baggage_claim_belt: string;
+  arrival_terminal: string;
+  connecting_flights: ConnectingFlight[];
+}
+
+// ── Flight Advisories ────────────────────────────────────
+
+export interface FlightAdvisory {
+  icon: string;
+  title: string;
+  description: string;
+  priority: "high" | "medium" | "low";
 }
 
 // ── Destination content ─────────────────────────────────

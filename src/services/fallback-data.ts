@@ -12,6 +12,7 @@ import type {
   DestinationContent,
   WeatherForecast,
   LocalNews,
+  FlightAdvisory,
 } from "./types";
 
 // ── Flight ──────────────────────────────────────────────
@@ -41,7 +42,83 @@ export const FALLBACK_FLIGHT: Flight = {
   average_duration_minutes: 105,
   departure_gate: "B23",
   baggage_claim_belt: "Carousel 5",
+  arrival_terminal: "T3",
+  connecting_flights: [
+    {
+      flight_number: "VY6102",
+      airline: "Vueling",
+      destination: "Naples",
+      destination_code: "NAP",
+      departure_time: "18:45",
+      gate: "G12",
+      terminal: "T3",
+      same_terminal: true,
+      status: "On Time",
+    },
+    {
+      flight_number: "AZ1234",
+      airline: "ITA Airways",
+      destination: "Milan Malpensa",
+      destination_code: "MXP",
+      departure_time: "19:10",
+      gate: "G28",
+      terminal: "T3",
+      same_terminal: true,
+      status: "On Time",
+    },
+    {
+      flight_number: "FR9876",
+      airline: "Ryanair",
+      destination: "Palermo",
+      destination_code: "PMO",
+      departure_time: "19:30",
+      gate: "E5",
+      terminal: "T2",
+      same_terminal: false,
+      status: "On Time",
+    },
+    {
+      flight_number: "VY6208",
+      airline: "Vueling",
+      destination: "Florence",
+      destination_code: "FLR",
+      departure_time: "20:15",
+      gate: "G15",
+      terminal: "T3",
+      same_terminal: true,
+      status: "Boarding",
+    },
+  ],
 };
+
+// ── Flight Advisories ────────────────────────────────────
+
+export const FALLBACK_ADVISORIES: FlightAdvisory[] = [
+  {
+    icon: "📱",
+    title: "Modo Avión activado",
+    description: "Mantén tu dispositivo en Modo Avión durante todo el vuelo. Puedes usar la WiFi de a bordo una vez activado.",
+    priority: "high",
+  },
+  {
+    icon: "📶",
+    title: "Datos móviles desactivados",
+    description: "Desactiva los datos móviles y el roaming. Usa únicamente la red WiFi del avión para navegar.",
+    priority: "high",
+  },
+  {
+    icon: "🔋",
+    title: "Bluetooth permitido",
+    description: "Puedes usar auriculares Bluetooth y dispositivos de bajo consumo durante el vuelo.",
+    priority: "low",
+  },
+  {
+    icon: "💺",
+    title: "Cinturón de seguridad",
+    description: "Mantén el cinturón abrochado mientras estés sentado, incluso con la señal apagada.",
+    priority: "medium",
+  },
+];
 
 // ── Destination content ─────────────────────────────────
 

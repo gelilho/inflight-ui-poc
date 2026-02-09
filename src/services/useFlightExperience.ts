@@ -1,7 +1,7 @@
 /**
  * useFlightExperience — single hook for all live API data.
  *
- * Fetches flight, destination content, weather, and news in parallel.
+ * Fetches flight, destination content, weather, news, and advisories in parallel.
  * Falls back to pre-cached data if backend is down or Gemini times out.
  * The demo never breaks.
  */
@@ -12,6 +12,7 @@ import {
   fetchDestinationContent,
   fetchWeather,
   fetchNews,
+  fetchAdvisories,
   logFallback,
 } from "./api";
 import {
@@ -19,12 +20,14 @@ import {
   FALLBACK_DESTINATION,
   FALLBACK_WEATHER,
   FALLBACK_NEWS,
+  FALLBACK_ADVISORIES,
 } from "./fallback-data";
 import type {
   Flight,
   DestinationContent,
   WeatherForecast,
   LocalNews,
+  FlightAdvisory,
 } from "./types";
 
 interface FlightExperience {
@@ -32,6 +35,7 @@ interface FlightExperience {
   destinationContent: DestinationContent;
   weather: WeatherForecast[];
   news: LocalNews[];
+  advisories: FlightAdvisory[];
   isLive: {
     flight: boolean;
     destination: boolean;
@@ -69,6 +73,7 @@ export function useFlightExperience(): FlightExperience {
     useState<DestinationContent>(FALLBACK_DESTINATION);
   const [weather, setWeather] = useState<WeatherForecast[]>(FALLBACK_WEATHER);
   const [news, setNews] = useState<LocalNews[]>(FALLBACK_NEWS);
+  const [advisories, setAdvisories] = useState<FlightAdvisory[]>(FALLBACK_ADVISORIES);
 
   const [isLive, setIsLive] = useState({
     flight: false,
@@ -130,7 +135,11 @@ export function useFlightExperience(): FlightExperience {
         logFallback("news", err.message);
       })
       .finally(() => setLoading((prev) => ({ ...prev, news: false })));
+
+    fetchAdvisories()
+      .then((data) => setAdvisories(data))
+      .catch((err) => logFallback("advisories", err.message));
   }, []);
 
-  return { flight, destinationContent, weather, news, isLive, loading };
+  return { flight, destinationContent, weather, news, advisories, isLive, loading };
 }

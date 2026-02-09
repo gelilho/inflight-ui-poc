@@ -4,6 +4,8 @@ import { WelcomeHeader } from "./components/WelcomeHeader";
 import { FlightMap } from "./components/FlightMap";
 import { AircraftDetails } from "./components/AircraftDetails";
 import { BaggageInfo } from "./components/BaggageInfo";
+import { ConnectingFlights } from "./components/ConnectingFlights";
+import { FlightAdvisories } from "./components/FlightAdvisories";
 import { TravelRecommendations } from "./components/TravelRecommendations";
 import { CartHeader } from "./components/CartHeader";
 import { HelpFooter } from "./components/HelpFooter";
@@ -25,7 +27,7 @@ export default function App() {
   const [detailContent, setDetailContent] = useState<DetailContent | null>(null);
 
   // Live API data (with pre-cached fallback — demo never breaks)
-  const { flight, destinationContent, weather, news, loading } =
+  const { flight, destinationContent, weather, news, advisories, loading } =
     useFlightExperience();
 
   const handleSectionSelect = (section: SectionType) => {
@@ -57,6 +59,8 @@ export default function App() {
               arrivalTime={flight.arrival_time}
             />
             <div className="h-2 bg-gray-100"></div>
+            <FlightAdvisories advisories={advisories} />
+            <div className="h-2 bg-gray-100"></div>
             <MainMenu onSectionSelect={handleSectionSelect} />
             <div className="h-2 bg-gray-100"></div>
             <HelpFooter />
@@ -81,6 +85,11 @@ export default function App() {
             />
             <div className="h-2 bg-gray-100"></div>
             <BaggageInfo carousel={flight.baggage_claim_belt} />
+            <div className="h-2 bg-gray-100"></div>
+            <ConnectingFlights
+              connections={flight.connecting_flights}
+              arrivalTerminal={flight.arrival_terminal}
+            />
             <div className="h-2 bg-gray-100"></div>
             <CrewSection
               captain={`${flight.cockpit_crew.captain.first_name} ${flight.cockpit_crew.captain.last_name}`}
